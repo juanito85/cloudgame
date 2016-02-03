@@ -1,0 +1,110 @@
+<!--
+~ [y] hybris Platform
+~
+~ Copyright (c) 2000-2015 hybris AG
+~ All rights reserved.
+~
+~ This software is the confidential and proprietary information of hybris
+~ ("Confidential Information"). You shall not disclose such Confidential
+~ Information and shall use it only in accordance with the terms of the
+~ license agreement you entered into with hybris.
+-->
+<div class="account">
+
+    <customer-details account="account"></customer-details>
+
+  <section class="lightgray" ng-cloak>
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-xs-12">
+            <div class="section-headline clearfix">
+              <h2 class="pull-left">{{'ADDRESSBOOK' | translate}}</h2>
+              <button id="add-address-btn" class="btn btn-secondary btn-md pull-right" ng-click="openAddressModal()">
+              {{'ADD' | translate}}
+              </button>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div ng-include="'./js/app/account/templates/addresses.html'"></div>
+      </div>
+
+      <div class="text-center" ng-if="showAddressButtons">
+        <button class="btn btn-link" ng-show="showAllAddressButton" ng-click="showAllAddresses()">{{'SHOW_ALL' | translate}} <span class="glyphicon glyphicon-chevron-down"/></button>
+        <button class="btn btn-link" ng-show="!showAllAddressButton" ng-click="showAllAddresses()">{{'SHOW_LESS' | translate}} <span class="glyphicon glyphicon-chevron-up"/></button>
+      </div>
+    </div>
+  </section>
+  <section class="mediumgray" ng-cloak>
+    <div class="container-fluid">
+      <div class="section-headline clearfix">
+        <h2>{{'ORDER_HISTORY' | translate}}</h2>
+      </div>
+
+      <div class="hidden-md hidden-lg row">
+        <div ng-repeat="m_order in orders | limitTo: showOrdersFilter" class="col-sm-4 col-xs-12 orderHistoryCard" ng-class="{'green': order.status == 'CREATED' || order.status == 'CONFIRMED' || order.status == 'SHIPPED', 'red':  order.status == 'DECLINED', 'blue': order.status == 'COMPLETED' }">
+            <div class="cardStatusIdentifier pull-left" ></div>
+            <div class="panel">
+                <div class="panel-body " >
+                    <div class="row">
+                        <div class="col-sm-8 col-xs-8 leftCol">
+                            <p>
+                              <strong>{{'PLACED_AT'|translate}}</strong><br/>
+                              {{m_order.created | date: 'medium'}}
+                            </p>
+                            <p>
+                                <strong>{{'ORDER_NUMBER'|translate}}</strong><br/>
+                                <a ui-sref="base.orderDetail({orderId: m_order.id})">{{m_order.id}}</a>
+                            </p>
+                            <p>
+                                <strong>{{'ITEMS_IN_ORDER'|translate}}</strong><br/>
+                                {{m_order.entries|sumByKey:'amount'|showNoOfItems}}
+                            </p>
+                            <p>{{m_order.totalPrice | currency: m_order.currencySymbol}}</p>
+                        </div>
+                        <div class="col-sm-4 col-xs-4">
+                          <p><strong>{{m_order.status}}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div ng-if="orders.length"  class="table-responsive hidden-sm hidden-xs">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>{{'DATE' | translate}}</th>
+              <th>{{'ORDER_NUMBER' | translate}}</th>
+              <th>{{'ITEMS_IN_ORDER' | translate}}</ht>
+              <th>{{'ORDER_TOTAL' | translate}}</th>
+              <th>{{'ORDER_STATUS' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="xrder in orders | limitTo: showOrdersFilter ">
+                  <td>{{xrder.created | date: 'medium'}}</td>
+                  <td><a ui-sref="base.orderDetail({orderId: xrder.id})">{{xrder.id}}</a></td>
+                  <td>{{xrder.entries|sumByKey:'amount'|showNoOfItems}}</td>
+                  <td>{{xrder.totalPrice | currency: xrder.currencySymbol}}</td>
+                  <td><strong>{{xrder.status}}</strong></td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p ng-if="!orders.length && orders.headers">{{'NO_ORDERS' | translate}}</p>
+      <p ng-if="!orders.length && !orders.headers">{{'FAIL_ORDER' | translate}}</p>
+
+      <div class="text-center" ng-if="showOrderButtons">
+        <button class="btn btn-link" ng-show="showAllOrdersButton" ng-click="showAllOrders()">{{'SHOW_ALL' | translate}} <span class="glyphicon glyphicon-chevron-down"/></button>
+        <button class="btn btn-link" ng-show="!showAllOrdersButton" ng-click="showAllOrders()">{{'SHOW_LESS' | translate}} <span class="glyphicon glyphicon-chevron-up"/></button>
+      </div>
+
+      
+    </div>
+
+  </section>
+
+</div>

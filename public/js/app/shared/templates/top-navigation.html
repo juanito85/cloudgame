@@ -1,0 +1,36 @@
+
+
+<div class="desktopNav">
+    <div class="row info">
+        <div class="content-container">
+            <div class="col-xs-9 col-sm-2 logo">
+                <a ui-sref="base.home" class="logo">
+                    <img ng-src="{{GlobalData.store.logo || 'img/logo.png'}}" height="46" alt="" />
+                </a>
+            </div>
+            <div class="col-sm-7 text-center hidden-xs">
+                <h1 style="margin: 10px 0 15px;">Find the invisible Cloud</h1>
+            </div>
+            <div class="col-xs-3 cart">
+                        <div class="text-center">
+                            <a id="login-btn" ng-if="!user.isAuthenticated" class=" signin" ng-click="login({windowClass:'mobileLoginModal'})">
+                                <img src="./img/user-icon_small_active.png" class="user-avatar">
+                                <span class="hidden-xs">{{'SIGN_IN' | translate}}</span>
+                            </a>
+                        </div>
+                        <div ng-if="user.isAuthenticated">
+                            <div class="signin-container pull-right ">
+                                <div class="text-center dropdown">
+                                    <a class="my-profile dropdown-toggle" title="{{'MY_ACCOUNT' | translate}}">
+                                        <img id="my-account-dropdown" src="./img/user-icon_small_active.png" class="user-avatar">
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li id="logout-btn" role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="logout()">{{'SIGN_OUT' | translate}}</a></li>
+                                    </ul>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
