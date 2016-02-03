@@ -1,10 +1,10 @@
 ---
 applications:
-- name: store-template-simple
+- name: cloudgame
   buildpack: https://github.com/drnic/staticfile-buildpack.git
   memory: 64M
-  host: store-template-simple
-  domain: dev.cf.hybris.com
+  host: gentle-badlands-31150
+  domain: herokuapp.com
   instances: 1
-  url: store-template-simple.cf1.hybris.com
+  url: https://gentle-badlands-31150.herokuapp.com
   path: ./public/
