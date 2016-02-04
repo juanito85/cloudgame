@@ -17,8 +17,8 @@
 
 
 </head>
-<body ng-class="{'fixedLayout': showCart }" ng-controller="CloudCtrl">
-    <div ng-class="{'right': showCart, 'left': showMobileNav}" class="off-canvas">
+<body ng-controller="CloudCtrl">
+    <div class="off-canvas">
         <div ui-view="sidebarNavigation" class="sidebar-offcanvas hidden-md hidden-lg" id="sidebar" role="navigation"></div>
             <div class="mainContent" ng-class="{'main-on-top': checkoutCartEditVisible }">
                 <div ui-view="topNavigation" ng-class="{removeHeader:gameStarted}"></div>
@@ -38,6 +38,10 @@
                             <p>{{distance}}</p>
                             <button class="btn btn-danger" ng-click="stopGame()">Stop Game</button>
                             <button class="btn btn-primary" ng-click="playAgain()">Play Again</button>
+                    </div>
+                    <div id="mobileBtn" class="mobileBtn">
+                        <button class="btn btn-danger" ng-click="stopGame()">Stop Game</button>
+                        <button class="btn btn-primary" ng-click="playAgain()">Play Again</button>
                     </div>
                 </div>
             </div>
