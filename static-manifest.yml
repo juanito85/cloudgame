@@ -3,8 +3,6 @@ applications:
 - name: cloudgame
   buildpack: https://github.com/drnic/staticfile-buildpack.git
   memory: 64M
-  host: gentle-badlands-31150
-  domain: herokuapp.com
+  url: cloudgame.yaas.io
   instances: 1
-  url: https://gentle-badlands-31150.herokuapp.com
-  path: ./public/
+  path: dist/

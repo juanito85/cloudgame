@@ -23,28 +23,32 @@ angular.module('ds.game', []).
     var aktuell;
     var soundUrl = 'js/app/game/sound/';
     $scope.wholeGame = true;
-    $scope.stopTracking = false;
+    $scope.trackMouse = true;
     $scope.backgroundAudio = null;
     $scope.personalAudioStream = null;
+    $scope.soundPlaying = true;
     
 
     
     $scope.startGame = function(){
-        $scope.stopTracking = false;
+        $scope.trackMouse = true;
         $scope.linkFound = false;
         $scope.gameStarted=true;
         $scope.calculateRandomPoint();
         date = new Date();
         $scope.startTimer();
         $scope.initAudio();
+        $scope.soundPlaying = true;
     };
     
     $scope.stopGame = function(){
         $scope.stopTimer();
         $scope.gameStarted = false;
         $scope.personalAudioStream.fadeOut();
-        highscoreSrv.createHighScore($scope.user, $scope.games);
-        $scope.games = 0;
+        if($scope.user){
+            highscoreSrv.createHighScore($scope.user, $scope.games);
+            $scope.games = 0;
+        }
     };
 
             
@@ -73,11 +77,12 @@ angular.module('ds.game', []).
         calculateDistance(x,y);
         if($scope.distance<10){
             $scope.linkFound = true;
-            if(!$scope.soundPlaying){
+            if($scope.soundPlaying){
                 $scope.playSound("12");
                 $scope.gamesPlayed();
                 $scope.stopTimer();
-                $scope.stopTracking = true;
+                $scope.trackMouse = false;
+                $scope.soundPlaying = false;
             }
         }
     };
@@ -88,61 +93,61 @@ angular.module('ds.game', []).
       
     //TODO normalize it
     $scope.trackMousePosition = function(event){
-        if(!$scope.stopTracking){
-        var x = event.clientX;
-        var y = event.clientY;
-        calculateDistance(x,y);
-        if($scope.distance<10){
-            document.body.style.cursor = "pointer";
-            if(!$scope.soundPlaying){
-                $scope.playSound("10");
-            }
-        }else if($scope.distance<40){
-            if(!$scope.soundPlaying){
-                $scope.playSound("9");
-            }
+        if($scope.trackMouse){
+            var x = event.clientX;
+            var y = event.clientY;
+            calculateDistance(x,y);
+            if($scope.distance<10){
+                document.body.style.cursor = "pointer";
+                if($scope.soundPlaying){
+                    $scope.playSound("10");
+                }
+            }else if($scope.distance<40){
+                if($scope.soundPlaying){
+                    $scope.playSound("9");
+                }
+                document.body.style.cursor = "default";
+            }else if($scope.distance<70){
+                if($scope.soundPlaying){
+                    $scope.playSound("8");
+                }
+                document.body.style.cursor = "default";
+            }else if($scope.distance<100){
+                if($scope.soundPlaying){
+                    $scope.playSound("7");
+                }
+                document.body.style.cursor = "default";
+            }else if($scope.distance<130){
+                if($scope.soundPlaying){
+                    $scope.playSound("6");
+                }
+                document.body.style.cursor = "default";
+            }else if($scope.distance<160){
+                if($scope.soundPlaying){
+                    $scope.playSound("5");
+                }
+                document.body.style.cursor = "default";
+            }else if($scope.distance<190){
+                if($scope.soundPlaying){
+                    $scope.playSound("4");
+                }
+                document.body.style.cursor = "default";
+            }else if($scope.distance<210){
+                if($scope.soundPlaying){
+                    $scope.playSound("3");
+                }
+                document.body.style.cursor = "default";
+            }else if($scope.distance<240){
+                if($scope.soundPlaying){
+                    $scope.playSound("2");
+                }
+                document.body.style.cursor = "default";
+            }else{
+                if($scope.soundPlaying){
+                    $scope.playSound("1");
+                }
             document.body.style.cursor = "default";
-        }else if($scope.distance<70){
-            if(!$scope.soundPlaying){
-                $scope.playSound("8");
             }
-            document.body.style.cursor = "default";
-        }else if($scope.distance<100){
-            if(!$scope.soundPlaying){
-                $scope.playSound("7");
-            }
-            document.body.style.cursor = "default";
-        }else if($scope.distance<130){
-            if(!$scope.soundPlaying){
-                $scope.playSound("6");
-            }
-            document.body.style.cursor = "default";
-        }else if($scope.distance<160){
-            if(!$scope.soundPlaying){
-                $scope.playSound("5");
-            }
-            document.body.style.cursor = "default";
-        }else if($scope.distance<190){
-            if(!$scope.soundPlaying){
-                $scope.playSound("4");
-            }
-            document.body.style.cursor = "default";
-        }else if($scope.distance<210){
-            if(!$scope.soundPlaying){
-                $scope.playSound("3");
-            }
-            document.body.style.cursor = "default";
-        }else if($scope.distance<240){
-            if(!$scope.soundPlaying){
-                $scope.playSound("2");
-            }
-            document.body.style.cursor = "default";
-        }else{
-            if(!$scope.soundPlaying){
-                $scope.playSound("1");
-            }
-           document.body.style.cursor = "default";
-        }
         }
     };
     
@@ -184,7 +189,7 @@ angular.module('ds.game', []).
     }
 
     $scope.playSound = function (variable) {
-        $scope.cowAudio[variable].setVolume(100).play();
+        $scope.cowAudio[variable].setVolume(100).play(); 
     };
 
 }]);
