@@ -153,8 +153,14 @@ angular.module('ds.game', []).
      };
     
     $scope.calculateRandomPoint = function(){
-        $scope.randomWidth =  100;//Math.floor(Math.random() * $(window).width()-100) + 1;
-        $scope.randomHeight = 100;//Math.floor(Math.random() * $(window).height()) + 1;
+        var fullScreenWidth = $(window).width();
+        var fullScreenHeight = $(window).height();
+        var maxScreenSize = fullScreenWidth - 300;
+        var maxScreenHeight = fullScreenHeight - 200;
+        var randomWidth=(Math.floor(Math.random()*maxScreenSize)+1);
+        var randomHeight=(Math.floor(Math.random()*maxScreenHeight)+1);
+        $scope.randomWidth =  50;//randomWidth;
+        $scope.randomHeight = 50;//randomHeight;
     };
     
     /**

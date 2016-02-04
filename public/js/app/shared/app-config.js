@@ -51,7 +51,7 @@ angular.module('ds.appconfig', [])
         },
         
         clientsecret: function(){
-            return '';
+            return 'AQGuAAS2x8SocV6C';
         }
 
 
