@@ -44,6 +44,7 @@ angular.module('ds.game', []).
         $scope.gameStarted = false;
         $scope.personalAudioStream.fadeOut();
         highscoreSrv.createHighScore($scope.user, $scope.games);
+        $scope.games = 0;
     };
 
             
