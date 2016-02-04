@@ -29,7 +29,7 @@
                 </div>
                 <div class="gameWrapper" ng-if="gameStarted">
                     <div id="game" class="game" ng-mousemove="trackMousePosition($event)" ng-click="checkCloud($event)">
-                        <img class="furt" ng-if="linkFound" src='js/app/game/img/cloudnew.png' >
+                        <img class="furt element-animation" ng-if="linkFound" src='js/app/game/img/cloudnew.png' >
                     </div>
                     <div id="stats" class="stats">
                             <p>Name: {{user}}</p>
