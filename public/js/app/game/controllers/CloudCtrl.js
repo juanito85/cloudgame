@@ -77,6 +77,7 @@ angular.module('ds.game', []).
         calculateDistance(x,y);
         if($scope.distance<10){
             $scope.linkFound = true;
+            $scope.imgSource="js/app/game/img/cloudnew";
             if($scope.soundPlaying){
                 $scope.playSound("12");
                 $scope.gamesPlayed();
