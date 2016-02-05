@@ -19,8 +19,8 @@ angular.module('ds.game', []).
     $scope.games = 0;
     $scope.timer = null;
     var date;
-    var zeit;
-    var aktuell;
+    var time;
+    var currentTime;
     var soundUrl = 'js/app/game/sound/';
     $scope.wholeGame = true;
     $scope.trackMouse = true;
@@ -54,9 +54,9 @@ angular.module('ds.game', []).
             
     $scope.startTimer = function () {
         $scope.timer = $interval(function () {
-            aktuell = new Date();
-            zeit = (aktuell.getTime() - date.getTime()) / 1000;
-            $scope.sec = Math.round(zeit);
+            currentTime = new Date();
+            time = (currentTime.getTime() - date.getTime()) / 1000;
+            $scope.sec = Math.round(time);
         }, 1000);
     };
              
@@ -166,8 +166,8 @@ angular.module('ds.game', []).
         var maxScreenHeight = fullScreenHeight - 200;
         var randomWidth=(Math.floor(Math.random()*maxScreenSize)+1);
         var randomHeight=(Math.floor(Math.random()*maxScreenHeight)+1);
-        $scope.randomWidth =  50;//randomWidth;
-        $scope.randomHeight = 50;//randomHeight;
+        $scope.randomWidth =  randomWidth;
+        $scope.randomHeight = randomHeight;
     };
     
     /**
