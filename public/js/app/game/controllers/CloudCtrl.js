@@ -198,7 +198,7 @@ angular.module('ds.game', ["ngTouchmove"]).
         $scope.cowAudio = [];
         for (var i = 0; i < 13; i++)
         {
-            $scope.cowAudio.push(new buzz.sound(soundUrl + i + ".mp3"));
+            $scope.cowAudio.push(new buzz.sound(soundUrl + i + ".wav"));
         }
 
         //$scope.backgroundAudio = new buzz.sound("sound/beat128.mp3");
