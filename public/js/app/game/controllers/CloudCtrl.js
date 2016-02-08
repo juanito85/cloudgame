@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('ds.game', ["ngTouchmove"]).
     controller('CloudCtrl',['$scope','$rootScope','GlobalData','$window', 'Restangular','$timeout','$interval','$filter','highscoreSrv',  
     function($scope, $rootScope, GlobalData, $window, Restangular, $timeout, $interval, $filter,highscoreSrv){
@@ -74,12 +73,13 @@ angular.module('ds.game', ["ngTouchmove"]).
     $scope.onTouchmove = function($event) {
         var x = $event.originalEvent.touches[0].clientX;
         var y = $event.originalEvent.touches[0].clientY;
+        console.log(x + ", " + y);
         $scope.checkDistance(x,y);
         if($scope.distance<10){
             $scope.foundTheCloud();
         }
     }
-      
+     
     //TODO normalize it
     $scope.trackMousePosition = function(event){
         if($scope.trackMouse){
