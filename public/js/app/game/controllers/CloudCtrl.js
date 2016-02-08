@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ds.game', []).
+angular.module('ds.game', ["ngTouchmove"]).
     controller('CloudCtrl',['$scope','$rootScope','GlobalData','$window', 'Restangular','$timeout','$interval','$filter','highscoreSrv',  
     function($scope, $rootScope, GlobalData, $window, Restangular, $timeout, $interval, $filter,highscoreSrv){
   
@@ -70,11 +70,31 @@ angular.module('ds.game', []).
         $scope.sec = 0;
         $scope.startGame();
     };
+    
+    $scope.onTouchmove = function($event) {
+        var x = $event.originalEvent.touches[0].clientX;
+        var y = $event.originalEvent.touches[0].clientY;
+        $scope.checkDistance(x, y);
+        $scope.foundTheCloud();
+    }
       
+    //TODO normalize it
+    $scope.trackMousePosition = function(event){
+        if($scope.trackMouse){
+            var x = event.clientX;
+            var y = event.clientY;
+            $scope.checkDistance(x,y);
+        }
+    };
+    
     $scope.checkCloud = function(event){
         var x = event.clientX;
         var y = event.clientY;
         calculateDistance(x,y);
+        $scope.foundTheCloud();    
+    };
+    
+    $scope.foundTheCloud = function(){
         if($scope.distance<10){
             $scope.linkFound = true;
             $scope.imgSource="js/app/game/img/cloudnew";
@@ -92,11 +112,8 @@ angular.module('ds.game', []).
         $scope.games = $scope.games + 1;
     };  
       
-    //TODO normalize it
-    $scope.trackMousePosition = function(event){
-        if($scope.trackMouse){
-            var x = event.clientX;
-            var y = event.clientY;
+    
+    $scope.checkDistance = function(x, y){
             calculateDistance(x,y);
             if($scope.distance<10){
                 document.body.style.cursor = "pointer";
@@ -149,7 +166,6 @@ angular.module('ds.game', []).
                 }
             document.body.style.cursor = "default";
             }
-        }
     };
     
      function calculateDistance(x,y){

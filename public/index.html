@@ -29,7 +29,7 @@
                     <button ng-if="!user" ng-if="authorized" class="btn btn-primary startGame" ng-click="startGame()">Start game anonyme</button>
                 </div>
                 <div class="gameWrapper" ng-if="gameStarted">
-                    <div id="game" class="game" ng-mousemove="trackMousePosition($event)" ng-click="checkCloud($event)">
+                    <div id="game" class="game" ng-mousemove="trackMousePosition($event)" ng-touchmove="onTouchmove($event)" ng-click="checkCloud($event)">
                         <div ng-if="linkFound">
                             <img class="furt element-animation"  ng-src="{{imgSource}}.png">
                         </div>
@@ -100,6 +100,7 @@
 
     <script src="js/app/game/controllers/CloudCtrl.js"></script>
     <script src="js/app/game/services/hightscore-srv.js"></script>
+    <script src="js/public/js/vendor/ngtouchmove/src/ngTouchmove.js"></script>
     <script src="js/buzz.js"></script>
 
     <script src="js/app/shared/controllers/sidebar-navigation-ctrl.js"></script>
