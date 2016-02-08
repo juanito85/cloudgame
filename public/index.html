@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     <title title-config ng-bind-template="Cloudgame"></title>
 
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -29,7 +29,7 @@
                     <button ng-if="!user" ng-if="authorized" class="btn btn-primary startGame" ng-click="startGame()">Start game anonyme</button>
                 </div>
                 <div class="gameWrapper" ng-if="gameStarted">
-                    <div id="game" class="game" ng-mousemove="trackMousePosition($event)" ng-touchmove="onTouchmove($event)" ng-click="checkCloud($event)">
+                    <div id="game" class="game" ng-mousemove="trackMousePosition($event)" ng-touchmove="onTouchmove($event)" ng-click="clickOnCloud($event)">
                         <div ng-if="linkFound">
                             <img class="furt element-animation"  ng-src="{{imgSource}}.png">
                         </div>

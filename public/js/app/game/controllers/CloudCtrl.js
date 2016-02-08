@@ -74,8 +74,10 @@ angular.module('ds.game', ["ngTouchmove"]).
     $scope.onTouchmove = function($event) {
         var x = $event.originalEvent.touches[0].clientX;
         var y = $event.originalEvent.touches[0].clientY;
-        $scope.checkDistance(x, y);
-        $scope.foundTheCloud();
+        $scope.checkDistance(x,y);
+        if($scope.distance<10){
+            $scope.foundTheCloud();
+        }
     }
       
     //TODO normalize it
@@ -87,24 +89,24 @@ angular.module('ds.game', ["ngTouchmove"]).
         }
     };
     
-    $scope.checkCloud = function(event){
+    $scope.clickOnCloud = function(event){
         var x = event.clientX;
         var y = event.clientY;
         calculateDistance(x,y);
-        $scope.foundTheCloud();    
+        if($scope.distance<10){
+            $scope.foundTheCloud();
+        }    
     };
     
     $scope.foundTheCloud = function(){
-        if($scope.distance<10){
-            $scope.linkFound = true;
-            $scope.imgSource="js/app/game/img/cloudnew";
-            if($scope.soundPlaying){
-                $scope.playSound("12");
-                $scope.gamesPlayed();
-                $scope.stopTimer();
-                $scope.trackMouse = false;
-                $scope.soundPlaying = false;
-            }
+        $scope.linkFound = true;
+        $scope.imgSource="js/app/game/img/cloudnew";
+        if($scope.soundPlaying){
+            $scope.playSound("12");
+            $scope.gamesPlayed();
+            $scope.stopTimer();
+            $scope.trackMouse = false;
+            $scope.soundPlaying = false;
         }
     };
     
