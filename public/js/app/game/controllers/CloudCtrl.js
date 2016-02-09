@@ -38,6 +38,7 @@ angular.module('ds.game', ["ngTouch"]).
         date = new Date();
         $scope.startTimer();
         $scope.soundPlaying = true;
+        $scope.startBackroundMusic();
     };
     
     $scope.stopGame = function(){
@@ -203,8 +204,11 @@ angular.module('ds.game', ["ngTouch"]).
         //$scope.backgroundAudio = new buzz.sound("sound/beat128.mp3");
         $scope.backgroundAudio2 = new buzz.sound(soundUrl + "fire.wav");
         $scope.personalAudioStream = new buzz.group($scope.backgroundAudio2);
-        $scope.personalAudioStream.setVolume(10).play();
     }
+    
+    $scope.startBackroundMusic = function(){
+        $scope.personalAudioStream.setVolume(10).play();        
+    };
 
     $scope.playSound = function (variable) {
         $scope.cowAudio[variable].setVolume(100).play();
