@@ -28,8 +28,8 @@
                     <button ng-if="user" ng-if="authorized" class="btn btn-primary startGame" ng-click="startGame()">Start game</button>
                     <button ng-if="!user" ng-if="authorized" class="btn btn-primary startGame" ng-click="startGame()">Start game anonyme</button>
                 </div>
-                <div class="gameWrapper" ng-if="gameStarted">
-                    <div id="game" class="game" ng-mousemove="trackMousePosition($event)" ng-touchmove="onTouchmove($event)" ng-click="clickOnCloud($event)">
+                <div class="gameWrapper" ng-show="gameStarted">
+                    <div id="game" class="game" ng-mousemove="trackMousePosition($event)" ng-click="clickOnCloud($event)">
                         <div ng-if="linkFound">
                             <img class="furt element-animation"  ng-src="{{imgSource}}.png">
                         </div>
@@ -195,7 +195,6 @@
     <!-- static script resources -->
     <script src="js/app/shared/router.js"></script>
     <script src="https://js.stripe.com/v2/"></script>
-    <script src="js/vendor/ngtouchmove/src/ngTouchmove.js"></script>
 
 </body>
 </html>
