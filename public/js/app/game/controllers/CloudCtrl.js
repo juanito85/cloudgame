@@ -48,6 +48,9 @@ angular.module('ds.game', ["ngTouch"]).
         if($scope.user){
             highscoreSrv.createHighScore($scope.user, $scope.games);
             $scope.games = 0;
+        }else{
+            highscoreSrv.createHighScore("anonymous", $scope.games);
+            $scope.games = 0;
         }
     };
 
