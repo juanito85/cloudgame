@@ -186,8 +186,11 @@ angular.module('ds.game', ["ngTouch"]).
         var maxScreenHeight = fullScreenHeight - 200;
         var randomWidth=(Math.floor(Math.random()*maxScreenSize)+1);
         var randomHeight=(Math.floor(Math.random()*maxScreenHeight)+1);
-        $scope.randomWidth =  randomWidth;
-        $scope.randomHeight = randomHeight;
+        //$scope.randomWidth =  randomWidth;
+        //$scope.randomHeight = randomHeight;
+
+        $scope.randomWidth =  0;
+        $scope.randomHeight = 0;
     };
     
     /**
