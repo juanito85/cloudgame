@@ -1,6 +1,6 @@
 angular.module('ds.game').factory('highscoreSrv', ['Restangular','TokenSvc', function(Restangular,TokenSvc){
      
-    Restangular.setBaseUrl('https://api.yaas.io/gamecenter/sandbox/v1/');
+    Restangular.setBaseUrl('https://api.yaas.io/gamecenter/highscore/v1/');
     
     
     var highscoreSrv = {};
