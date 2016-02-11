@@ -12,8 +12,7 @@ angular.module('ds.game').factory('highscoreSrv', ['Restangular','TokenSvc', fun
     highscoreSrv.createHighScore = function(user, scores){
         var data = {
             'score':scores,
-            'nickname': user,
-            'timestamp': new Date().getTime()
+            'nickname': user
         };
         var headers = {
             'Authorization': 'Bearer '+TokenSvc.getToken(),

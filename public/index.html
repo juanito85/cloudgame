@@ -26,7 +26,6 @@
             <div>    
                 <div class="startseite" ng-if="!gameStarted">
                     <button ng-if="user" ng-if="authorized" class="btn btn-primary startGame" ng-click="startGame()">Start game</button>
-                    <button ng-if="!user" ng-if="authorized" class="btn btn-primary startGame" ng-click="startGame()">Start game anonymous</button>
                 </div>
                 <div class="gameWrapper" ng-show="gameStarted">
                     <div id="game" class="game" ng-mousemove="trackMousePosition($event)" ng-click="clickOnCloud($event)">
@@ -39,7 +38,6 @@
                                 <p>Name: {{user}}</p>
                                 <p>fastest time per hit: {{sec}} sec</p>
                                 <p>total hits: {{games}}</p>
-                                <p>{{distance}}</p>
                             </div>
                             <button class="btn btn-danger" ng-click="stopGame()">Stop Game</button>
                             <button class="btn btn-primary" ng-click="playAgain()">Play Again</button>
