@@ -18,12 +18,8 @@ body{
    height: 100%;
 }
 
-.stats{
+.game-controls{
   display: none;
-}
-
-.stats.found{
-  display: block;
 }
 
 .game-controls.found{
@@ -34,12 +30,6 @@ body{
       width: 300px;
       height: 200px;
       padding-top: 5px;
-}
-
-@media (min-width: 801px){
-   .stats{
-    display: block;
-   }
 }
 
 .startseite{
