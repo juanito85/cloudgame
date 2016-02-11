@@ -30,15 +30,13 @@
                 <div class="gameWrapper" ng-show="gameStarted">
                     <div id="game" class="game" ng-mousemove="trackMousePosition($event)" ng-click="clickOnCloud($event)">
                         <div ng-if="linkFound">
-                            <img class="furt element-animation"  ng-src="{{imgSource}}.png">
+                            <img class="fart element-animation"  ng-src="{{imgSource}}.png">
                         </div>
                     </div>
-                    <div class="game-controls">
-                            <div id="stats" class="stats" ng-class="{'found': linkFound}">
-                                <p>Name: {{user}}</p>
-                                <p>fastest time per hit: {{sec}} sec</p>
-                                <p>total hits: {{games}}</p>
-                            </div>
+                    <div class="game-controls" ng-class="{'found': linkFound}">
+                            <p>Name: {{user}}</p>
+                            <p>fastest time per hit: {{sec}} sec</p>
+                            <p>total hits: {{games}}</p>
                             <button class="btn btn-danger" ng-click="stopGame()">Stop Game</button>
                             <button class="btn btn-primary" ng-click="playAgain()">Play Again</button>
                     </div>

@@ -14,7 +14,6 @@ body{
 
 .game{
    position: relative;
-
    width: 100%;
    height: 100%;
 }
@@ -27,48 +26,24 @@ body{
   display: block;
 }
 
-.game-controls{
+.game-controls.found{
       position: absolute;
       top: 0;
       right: 0;
-
       display: block;
-
       width: 300px;
       height: 200px;
       padding-top: 5px;
 }
 
 @media (min-width: 801px){
-
-
    .stats{
     display: block;
    }
 }
 
-@media (min-width: 0) and (max-width: 800px){
-   .mobileBtn{
-      position: absolute;
-      top: 0;
-      right: 0;
-
-      display: block;
-
-      height: 50px;
-      padding: 5px;
-   }
-}
-
-@media (min-width: 801px){
-   .mobileBtn{
-      display: none;
-   }
-}
-
 .startseite{
    position: absolute;
-
    width: 100%;
    height: 100%;
 }
@@ -76,7 +51,6 @@ body{
    position: absolute;
    top: 50%;
    left: 50%;
-
    transform: translate(-50%,-50%);
 }
 
@@ -88,14 +62,13 @@ body{
    transition: margin .3s ease-in-out;
 }
 
-.furt{
+.fart{
    position: absolute;
    top: 50%;
    left: 50%;
-
    transform: translate(-50%,-50%);
-  max-width: 100%; // Part 1: Set a maximum relative to the parent
-  height: auto; // Part 2: Scale the height according to the width, otherwise you get stretching
+    max-width: 100%;
+    height: auto;
 }
 
 
