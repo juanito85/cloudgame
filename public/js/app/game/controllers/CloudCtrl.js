@@ -83,7 +83,6 @@ angular.module('ds.game', ["ngTouch"]).
         }
     }
      
-    //TODO normalize it
     $scope.trackMousePosition = function(event){
         if($scope.trackMouse){
             var x = event.clientX;
@@ -117,6 +116,7 @@ angular.module('ds.game', ["ngTouch"]).
         $scope.games = $scope.games + 1;
     };  
       
+    //TODO normalize it
     $scope.checkDistance = function(x, y){
         calculateDistance(x,y);
         if($scope.distance<10){
@@ -189,7 +189,7 @@ angular.module('ds.game', ["ngTouch"]).
         //$scope.randomWidth =  randomWidth;
         //$scope.randomHeight = randomHeight;
 
-        $scope.randomWidth =  0;
+        $scope.randomWidth = 0;
         $scope.randomHeight = 0;
     };
     

@@ -47,7 +47,7 @@ angular.module('ds.appconfig', [])
 
         redirectURI: function() {
             // Dynamic RedirectURI is configured and replaced by build script, see gruntfile.
-            return /*StartRedirectURI*/ 'http://whatever.io' /*EndRedirectURI*/;
+            return /*StartRedirectURI*/ 'https://cloudgame.us-east.internal.yaas.io/' /*EndRedirectURI*/;
         },
         
         clientsecret: function(){
