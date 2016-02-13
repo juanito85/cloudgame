@@ -6,15 +6,14 @@ angular.module('ds.game', ["ngTouch"]).
     $scope.hotZone = 44;
   
     $scope.$on('user:signedin', function(e) {
-        $scope.user = true;
+        $scope.userAuthenticated = true;
     });
     
     $scope.$on('user:signedout', function(){
-        $scope.user = false;
+        $scope.userAuthenticated = false;
     });
   
     $scope.linkFound = false;
-    $scope.games = 0;
     $scope.timer = null;
     var date;
     var time;
@@ -42,10 +41,7 @@ angular.module('ds.game', ["ngTouch"]).
         $scope.stopTimer();
         $scope.gameStarted = false;
         $scope.personalAudioStream.fadeOut();
-        if($scope.user){
-            highscoreSrv.createHighScore(GlobalData.customerAccount.contactEmail, $scope.games);
-            $scope.games = 0;
-        }
+        $scope.stopBackroundMusic();
     };
 
     $scope.startTimer = function () {
@@ -98,17 +94,26 @@ angular.module('ds.game', ["ngTouch"]).
         $scope.imgSource="js/app/game/img/cloudnew";
         if($scope.soundPlaying){
             $scope.playSound("12");
-            $scope.gamesPlayed();
             $scope.stopTimer();
             $scope.trackMouse = false;
             $scope.soundPlaying = false;
         }
+        if($scope.userAuthenticated){
+            $scope.calculateScore();
+            $scope.userEmail = GlobalData.customerAccount.contactEmail
+            highscoreSrv.createHighScore(GlobalData.customerAccount.contactEmail, $scope.score);
+        }
     };
     
-    $scope.gamesPlayed = function(){
-        $scope.games = $scope.games + 1;
-    };  
-      
+    $scope.calculateScore = function(){
+        if(60-$scope.sec<=0){
+            $scope.score = 1;
+        }else{
+            $scope.score = 60-$scope.sec;
+        }
+        
+    };
+     
     //TODO normalize it
     $scope.checkDistance = function(x, y){
         calculateDistance(x,y);
@@ -177,18 +182,10 @@ angular.module('ds.game', ["ngTouch"]).
         var fullScreenHeight = $(window).height();
         var randomWidth=(Math.floor(Math.random()*fullScreenWidth)+1);
         var randomHeight=(Math.floor(Math.random()*fullScreenHeight)+1);
-        //$scope.randomWidth =  randomWidth;
-        //$scope.randomHeight = randomHeight;
-        $scope.randomWidth = 0;
-        $scope.randomHeight = 0;
+        $scope.randomWidth =  randomWidth;
+        $scope.randomHeight = randomHeight;
     };
-    
-    /**
-     * loads 2 background audio files and intitites the streams
-     * place for multiplexing.
-     * Also the cow sounds are preloaded.
-     * @returns {undefined}
-     */
+
     $scope.initAudio = function () {
         $scope.cowAudio = [];
         for (var i = 0; i < 13; i++)
@@ -209,7 +206,11 @@ angular.module('ds.game', ["ngTouch"]).
     $scope.startBackroundMusic = function(){
         $scope.personalAudioStream.setVolume(40).play();        
     };
-
+    
+    $scope.stopBackroundMusic = function(){
+         $scope.personalAudioStream.stop();   
+    };
+    
     $scope.playSound = function (variable) {
         if($scope.canPlay || variable > 11) {
             $scope.canPlay = false;

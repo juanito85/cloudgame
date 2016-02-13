@@ -24,8 +24,8 @@
                 <div ui-view="topNavigation" ng-class="{removeHeader:gameStarted}"></div>
             </div>
             <div>    
-                <div class="startseite" ng-if="!gameStarted">
-                    <button ng-if="user" class="btn btn-primary startGame" ng-click="startGame()">Start game</button>
+                <div class="startseite" ng-show="!gameStarted">
+                    <button ng-if="userAuthenticated" class="btn btn-primary startGame" ng-click="startGame()">Start game</button>
                 </div>
                 <div class="gameWrapper" ng-show="gameStarted">
                     <div id="game" class="game" ng-mousemove="trackMousePosition($event)" ng-click="clickOnCloud($event)">
@@ -34,10 +34,9 @@
                         </div>
                     </div>
                     <div class="game-controls" ng-class="{'found': linkFound}">
-                            <p>Name: {{user}}</p>
+                            <p>Name: {{userEmail}}</p>
                             <p>fastest time per hit: {{sec}} sec</p>
-                            <p>total hits: {{games}}</p>
-                            <button class="btn btn-danger" ng-click="stopGame()">Stop Game</button>
+                            <button class="btn btn-danger" ng-click="stopGame()">Exit Game</button>
                             <button class="btn btn-primary" ng-click="playAgain()">Play Again</button>
                     </div>
                 </div>
