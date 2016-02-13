@@ -2,16 +2,15 @@
 angular.module('ds.game', ["ngTouch"]).
     controller('CloudCtrl',['$scope','$rootScope','GlobalData','$window', 'Restangular','$timeout','$interval','$filter','highscoreSrv',  
     function($scope, $rootScope, GlobalData, $window, Restangular, $timeout, $interval, $filter,highscoreSrv){
+    
+    $scope.hotZone = 44;
   
-  
-    $scope.$on('user:signedin', function() {
-        $timeout(function(){
-            $scope.user = GlobalData.customerAccount.contactEmail;    
-        },1000);
+    $scope.$on('user:signedin', function(e) {
+        $scope.user = true;
     });
     
     $scope.$on('user:signedout', function(){
-        $scope.user = undefined;
+        $scope.user = false;
     });
   
     $scope.linkFound = false;
@@ -26,9 +25,7 @@ angular.module('ds.game', ["ngTouch"]).
     $scope.backgroundAudio = null;
     $scope.personalAudioStream = null;
     $scope.soundPlaying = true;
-    $scope.isPlaySound=false;
-    
-
+    $scope.canPlay=true;
     
     $scope.startGame = function(){
         $scope.trackMouse = true;
@@ -46,12 +43,11 @@ angular.module('ds.game', ["ngTouch"]).
         $scope.gameStarted = false;
         $scope.personalAudioStream.fadeOut();
         if($scope.user){
-            highscoreSrv.createHighScore($scope.user, $scope.games);
+            highscoreSrv.createHighScore(GlobalData.customerAccount.contactEmail, $scope.games);
             $scope.games = 0;
         }
     };
 
-            
     $scope.startTimer = function () {
         $scope.timer = $interval(function () {
             currentTime = new Date();
@@ -75,7 +71,7 @@ angular.module('ds.game', ["ngTouch"]).
         var x = $event.originalEvent.touches[0].clientX;
         var y = $event.originalEvent.touches[0].clientY;
         $scope.checkDistance(x,y);
-        if($scope.distance<10){
+        if($scope.distance<$scope.hotZone){
             $scope.foundTheCloud();
         }
     }
@@ -92,7 +88,7 @@ angular.module('ds.game', ["ngTouch"]).
         var x = event.clientX;
         var y = event.clientY;
         calculateDistance(x,y);
-        if($scope.distance<10){
+        if($scope.distance<$scope.hotZone){
             $scope.foundTheCloud();
         }    
     };
@@ -116,47 +112,47 @@ angular.module('ds.game', ["ngTouch"]).
     //TODO normalize it
     $scope.checkDistance = function(x, y){
         calculateDistance(x,y);
-        if($scope.distance<10){
+        if($scope.distance<$scope.hotZone){
             document.body.style.cursor = "pointer";
             if($scope.soundPlaying){
                 $scope.playSound("10");
             }
-        }else if($scope.distance<40){
+        }else if($scope.distance<88){
             if($scope.soundPlaying){
                 $scope.playSound("9");
             }
             document.body.style.cursor = "default";
-        }else if($scope.distance<70){
+        }else if($scope.distance<130){
             if($scope.soundPlaying){
                 $scope.playSound("8");
             }
             document.body.style.cursor = "default";
-        }else if($scope.distance<100){
+        }else if($scope.distance<170){
             if($scope.soundPlaying){
                 $scope.playSound("7");
             }
             document.body.style.cursor = "default";
-        }else if($scope.distance<130){
+        }else if($scope.distance<210){
             if($scope.soundPlaying){
                 $scope.playSound("6");
             }
             document.body.style.cursor = "default";
-        }else if($scope.distance<160){
+        }else if($scope.distance<250){
             if($scope.soundPlaying){
                 $scope.playSound("5");
             }
             document.body.style.cursor = "default";
-        }else if($scope.distance<190){
+        }else if($scope.distance<280){
             if($scope.soundPlaying){
                 $scope.playSound("4");
             }
             document.body.style.cursor = "default";
-        }else if($scope.distance<210){
+        }else if($scope.distance<310){
             if($scope.soundPlaying){
                 $scope.playSound("3");
             }
             document.body.style.cursor = "default";
-        }else if($scope.distance<240){
+        }else if($scope.distance<340){
             if($scope.soundPlaying){
                 $scope.playSound("2");
             }
@@ -197,7 +193,11 @@ angular.module('ds.game', ["ngTouch"]).
         $scope.cowAudio = [];
         for (var i = 0; i < 13; i++)
         {
-            $scope.cowAudio.push(new buzz.sound(soundUrl + i + ".wav"));
+            var mySound = new buzz.sound(soundUrl + i + ".wav");
+            mySound.bind("ended", function(e) {
+                $scope.canPlay = true;
+            });
+            $scope.cowAudio.push(mySound);
         }
 
         window.cowAudio = $scope.cowAudio;
@@ -207,11 +207,14 @@ angular.module('ds.game', ["ngTouch"]).
     }
     
     $scope.startBackroundMusic = function(){
-        $scope.personalAudioStream.setVolume(10).play();        
+        $scope.personalAudioStream.setVolume(40).play();        
     };
 
     $scope.playSound = function (variable) {
-        $scope.cowAudio[variable].setVolume(100).play();
+        if($scope.canPlay || variable > 11) {
+            $scope.canPlay = false;
+            $scope.cowAudio[variable].setVolume(100).play();
+        }
     };
 
 
