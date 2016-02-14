@@ -84,7 +84,7 @@ angular.module('ds.game', ["ngTouch"]).
                     document.body.style.cursor = "default";
                     $scope.timer = null;
                     $scope.sec = 0;
-                    
+
                     var musicTasteBPM = musicSrv.getLastBPM();
                     //console.log("sending taste to Profile:", musicTasteBPM);
                     $scope.emitCategoryView(musicTasteBPM);
@@ -249,12 +249,18 @@ angular.module('ds.game', ["ngTouch"]).
                     var personalBPM = 130;
                     var xxx = musicSrv.getMusic(1, visitorInfo.getVisitorId()).then(function (response) {
                         taste = response;
-                        taste.shift();
-                        taste.sort($scope.compareMusic);
-                        personalBPM = taste[0].id;
-                        
+                        if (taste.length > 2)
+                        {
+                            taste.shift();
+                            taste.sort($scope.compareMusic);
+                            personalBPM = taste[0].id;
+                        } else
+                        {
+                            personalBPM = 130 // default
+                        }
+
                         //$scope.backgroundAudio = new buzz.sound("sound/beat128.mp3");
-                        $scope.backgroundAudio2 = new buzz.sound(soundUrl + "fire.wav");
+                        $scope.backgroundAudio2 = new buzz.sound(soundUrl + "fire" + "_" + personalBPM + ".wav");
                         $scope.personalAudioStream = new buzz.group($scope.backgroundAudio2);
                         $scope.personalAudioStream.setVolume(40).play();
                     });
