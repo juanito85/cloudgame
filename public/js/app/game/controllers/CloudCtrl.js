@@ -248,18 +248,23 @@ angular.module('ds.game', ["ngTouch"]).
                     var taste = [];
                     var personalBPM = 130;
                     var xxx = musicSrv.getMusic(1, visitorInfo.getVisitorId()).then(function (response) {
-                        taste = response;
-                        if (taste.length > 2)
+                        if (response.status === 200)
                         {
-                            taste.shift();
-                            taste.sort($scope.compareMusic);
-                            personalBPM = taste[0].id;
+                            taste = response;
+                            if (taste.length > 2)
+                            {
+                                taste.shift();
+                                taste.sort($scope.compareMusic);
+                                personalBPM = taste[0].id;
+                            } else
+                            {
+                                personalBPM = 130 // default
+                            }
                         } else
                         {
-                            personalBPM = 130 // default
+                            // empty, use default
                         }
 
-                        //$scope.backgroundAudio = new buzz.sound("sound/beat128.mp3");
                         $scope.backgroundAudio2 = new buzz.sound(soundUrl + "fire" + "_" + personalBPM + ".wav");
                         $scope.personalAudioStream = new buzz.group($scope.backgroundAudio2);
                         $scope.personalAudioStream.setVolume(40).play();
