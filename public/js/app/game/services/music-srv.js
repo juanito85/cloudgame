@@ -6,12 +6,17 @@ angular.module('ds.game').factory('musicSrv', ['Restangular', 'MusicREST', funct
         musicSrv.msecsFirst = 0;
         musicSrv.msecsPrevious = 0;
         musicSrv.supportedBPM = [80, 90, 130, 142];
+        musicSrv.lastBPM = 130;
 
+        musicSrv.getLastBPM = function () {
+            return musicSrv.lastBPM;
+        }
 
         musicSrv.getMusic = function (speed, piwikId) {
 
-            var x = musicREST.Music.all("stream/neighbours/cdm/Session/" + piwikId).getList();
-            console.log("x: ", x);
+            var x = musicREST.Music.all("stream/neighbours/cdm/Session/" + piwikId + "?include=relations/cdm/Session/cdm/Category/cdm/VIEWED").getList();
+
+
             return x;
         };
 
@@ -41,9 +46,10 @@ angular.module('ds.game').factory('musicSrv', ['Restangular', 'MusicREST', funct
             else
             {
                 musicSrv.bpmAvg = 60000 * musicSrv.count / (musicSrv.msecs - musicSrv.msecsFirst);
-                console.log("exact bpm: ", Math.round(musicSrv.bpmAvg * 100) / 100);
-                console.log("rounded bpm: ", Math.round(musicSrv.bpmAvg));
-                console.log("closest match: ", musicSrv.getClosest(musicSrv.supportedBPM, Math.round(musicSrv.bpmAvg)));
+                //console.log("exact bpm: ", Math.round(musicSrv.bpmAvg * 100) / 100);
+                //console.log("rounded bpm: ", Math.round(musicSrv.bpmAvg));
+                //console.log("closest match: ", musicSrv.getClosest(musicSrv.supportedBPM, Math.round(musicSrv.bpmAvg)));
+                musicSrv.lastBPM = musicSrv.getClosest(musicSrv.supportedBPM, Math.round(musicSrv.bpmAvg));
                 musicSrv.count++;
                 //document.TAP_DISPLAY.T_TAP.value = count;
             }
