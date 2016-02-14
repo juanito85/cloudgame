@@ -5,7 +5,7 @@ angular.module('ds.game').factory('musicSrv', ['Restangular', 'MusicREST', funct
         musicSrv.count = 0;
         musicSrv.msecsFirst = 0;
         musicSrv.msecsPrevious = 0;
-        musicSrv.supportedBPM = [90, 130, 142, 160, 180];
+        musicSrv.supportedBPM = [90, 130, 142, 160];
         musicSrv.lastBPM = 130;
 
         musicSrv.getLastBPM = function () {
