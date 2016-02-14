@@ -102,6 +102,9 @@ angular.module('ds.shared')
 
                 indexing: {
                     baseUrl: 'https://' + apiPath + '/hybris/search-algolia/v1/' + tenantId
+                },
+                music: {
+                    baseUrl: 'https://' + apiPath + '/hybris/profile-secured-graph/b1/' + tenantId
                 }
             };
 

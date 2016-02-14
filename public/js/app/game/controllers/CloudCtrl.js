@@ -1,7 +1,7 @@
 'use strict';
 angular.module('ds.game', ["ngTouch"]).
-    controller('CloudCtrl',['$scope','$rootScope','GlobalData','$window', 'Restangular','$timeout','$interval','$filter','highscoreSrv',  
-    function($scope, $rootScope, GlobalData, $window, Restangular, $timeout, $interval, $filter,highscoreSrv){
+    controller('CloudCtrl',['$scope','$rootScope','GlobalData','$window', 'Restangular','$timeout','$interval','$filter','highscoreSrv', 'musicSrv',
+    function($scope, $rootScope, GlobalData, $window, Restangular, $timeout, $interval, $filter,highscoreSrv, musicSrv){
     
     $scope.hotZone = 44;
   
@@ -35,7 +35,32 @@ angular.module('ds.game', ["ngTouch"]).
         $scope.startTimer();
         $scope.soundPlaying = true;
         $scope.startBackroundMusic();
+        
+        /** sebastian **/
+        var visitorInfo = Piwik.getAsyncTracker(); 
+        console.log(visitorInfo.getVisitorId());
+        $scope.getGraph(visitorInfo.getVisitorId());
+       
+        // ad bpm interpolator
+        document.onmousedown = musicSrv.bpm;
+        
     };
+    
+    $scope.getGraph = function(piwikId)
+    {
+        var xxx = musicSrv.getMusic(1, piwikId);
+        console.log("response ", xxx);
+    }
+    
+    $scope.emitCategoryView = function (categoryName)
+    {
+        var cat = {};
+        cat.path = [];
+        var path = {};
+        path.name = categoryName;
+        cat.path.push(path);
+        $scope.$emit('category:opened', cat);
+    }
     
     $scope.stopGame = function(){
         $scope.stopTimer();
