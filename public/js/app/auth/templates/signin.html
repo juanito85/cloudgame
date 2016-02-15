@@ -1,13 +1,19 @@
 <form name="singinForm" ng-submit="signin(user.signin, singinForm)">
     <div class="form-group input-group" ng-class="{ 'has-error': singinForm.username.$invalid && singinForm.username.$dirty }">
         <label class="input-group-addon control-label" for="usernameInput">{{'EMAIL' | translate}}</label>
-        <input type="email" class="form-control" id="usernameInput" name="username"
+        <input type="email" class="form-control" id="usernameInput" name="username" style="z-index: 1"
                ng-model="user.signin.email" >
+        <div style="position:absolute; width:100%; height: 100%; top: 0; left: 0; cursor:text; z-index: 2" 
+                 onclick="$('#usernameInput').focus();return false;"
+                 ontouchstart="$('#usernameInput').focus();return false;"></div>
     </div>
     <div class="form-group input-group" ng-class="{ 'has-error': singinForm.password.$invalid && singinForm.password.$dirty }">
         <label class="input-group-addon control-label" for="passwordInput">{{'PASSWORD' | translate}}</label>
-        <input type="password" class="form-control" id="passwordInput" name="password"
+        <input type="password" class="form-control" id="passwordInput" name="password" style="z-index: 1"
                ng-model="user.signin.password">
+        <div style="position:absolute; width:100%; height: 100%; top: 0; left: 0; cursor:text; z-index: 2" 
+                 onclick="$('#passwordInput').focus();return false;"
+                 ontouchstart="$('#passwordInput').focus();return false;"></div>
     </div>
     <ul ng-if="errors && errors.signin.length" class="list-unstyled text-danger">
         <li ng-repeat="error in errors.signin">{{error.message | translate}}</li>
