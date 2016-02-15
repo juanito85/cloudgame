@@ -4,8 +4,10 @@
 <section>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs signInTabs text-center" role="tablist">
-      <li class="active signInButton"><a href="#signin" role="tab" data-toggle="tab">{{'SIGN_IN' | translate}}</a></li>
-      <li><a href="#signup" role="tab" data-toggle="tab">{{'CREATE_ACCOUNT' | translate}}</a></li>
+      <li class="active signInButton"><a href="#signin" role="tab" data-toggle="tab"
+            onclick="$('#myTabs a[href=\'#signin\']').tab('show');return false;" >{{'SIGN_IN' | translate}}</a></li>
+      <li><a href="#signup" role="tab" data-toggle="tab"
+            onclick="$('#myTabs a[href=\'#signin\']').tab('show');return false;">{{'CREATE_ACCOUNT' | translate}}</a></li>
     </ul>
     <div class="clr"><!-- --></div>
 
