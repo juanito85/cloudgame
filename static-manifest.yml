@@ -4,4 +4,7 @@ applications:
   buildpack: https://github.com/drnic/staticfile-buildpack.git
   memory: 64M
   instances: 1
+  host: cloudgame
+  domain: yaas.io
+  url: cloudgame.yaas.io
   path: dist/

@@ -1,5 +1,6 @@
 'use strict';
 angular.module('ds.game', ["ngTouch"]).
+
         controller('CloudCtrl', ['$scope', '$rootScope', 'GlobalData', '$window', 'Restangular', '$timeout', '$interval', '$filter', 'highscoreSrv', 'musicSrv',
             function ($scope, $rootScope, GlobalData, $window, Restangular, $timeout, $interval, $filter, highscoreSrv, musicSrv) {
 
@@ -146,61 +147,7 @@ angular.module('ds.game', ["ngTouch"]).
 
                 };
 
-                //TODO normalize it
-                $scope.checkDistance = function (x, y) {
-                    calculateDistance(x, y);
-                    if ($scope.distance < $scope.hotZone) {
-                        document.body.style.cursor = "pointer";
-                        if ($scope.soundPlaying) {
-                            $scope.playSound("10");
-                        }
-                    } else if ($scope.distance < 88) {
-                        if ($scope.soundPlaying) {
-                            $scope.playSound("9");
-                        }
-                        document.body.style.cursor = "default";
-                    } else if ($scope.distance < 130) {
-                        if ($scope.soundPlaying) {
-                            $scope.playSound("8");
-                        }
-                        document.body.style.cursor = "default";
-                    } else if ($scope.distance < 170) {
-                        if ($scope.soundPlaying) {
-                            $scope.playSound("7");
-                        }
-                        document.body.style.cursor = "default";
-                    } else if ($scope.distance < 210) {
-                        if ($scope.soundPlaying) {
-                            $scope.playSound("6");
-                        }
-                        document.body.style.cursor = "default";
-                    } else if ($scope.distance < 250) {
-                        if ($scope.soundPlaying) {
-                            $scope.playSound("5");
-                        }
-                        document.body.style.cursor = "default";
-                    } else if ($scope.distance < 280) {
-                        if ($scope.soundPlaying) {
-                            $scope.playSound("4");
-                        }
-                        document.body.style.cursor = "default";
-                    } else if ($scope.distance < 310) {
-                        if ($scope.soundPlaying) {
-                            $scope.playSound("3");
-                        }
-                        document.body.style.cursor = "default";
-                    } else if ($scope.distance < 340) {
-                        if ($scope.soundPlaying) {
-                            $scope.playSound("2");
-                        }
-                        document.body.style.cursor = "default";
-                    } else {
-                        if ($scope.soundPlaying) {
-                            $scope.playSound("1");
-                        }
-                        document.body.style.cursor = "default";
-                    }
-                };
+           
 
                 function calculateDistance(x, y) {
                     var a = $scope.randomWidth - x;
@@ -275,15 +222,86 @@ angular.module('ds.game', ["ngTouch"]).
                     $scope.personalAudioStream.stop();
                 };
 
-                $scope.playSound = function (variable) {
-                    if ($scope.canPlay || variable > 11) {
-                        $scope.canPlay = false;
-                        musicSrv.bpm("knödel");
-                        $scope.cowAudio[variable].setVolume(100).play();
-                    }
-                };
+          
 
 
-                $scope.initAudio();
-                angular.element("#game").on("touchstart", $scope.onTouchmove);
-            }]);
+            
+
+
+
+     
+    //TODO normalize it
+    $scope.checkDistance = function(x, y, forcePlay){
+        calculateDistance(x,y);
+        if($scope.distance<$scope.hotZone){
+            document.body.style.cursor = "pointer";
+            if($scope.soundPlaying){
+                $scope.playSound("10", forcePlay);
+            }
+        }else if($scope.distance<88){
+            if($scope.soundPlaying){
+                $scope.playSound("10", forcePlay);
+            }
+            document.body.style.cursor = "default";
+        }else if($scope.distance<130){
+            if($scope.soundPlaying){
+                $scope.playSound("9", forcePlay);
+            }
+            document.body.style.cursor = "default";
+        }else if($scope.distance<170){
+            if($scope.soundPlaying){
+                $scope.playSound("8", forcePlay);
+            }
+            document.body.style.cursor = "default";
+        }else if($scope.distance<210){
+            if($scope.soundPlaying){
+                $scope.playSound("7", forcePlay);
+            }
+            document.body.style.cursor = "default";
+        }else if($scope.distance<250){
+            if($scope.soundPlaying){
+                $scope.playSound("6", forcePlay);
+            }
+            document.body.style.cursor = "default";
+        }else if($scope.distance<280){
+            if($scope.soundPlaying){
+                $scope.playSound("5", forcePlay);
+            }
+            document.body.style.cursor = "default";
+        }else if($scope.distance<310){
+            if($scope.soundPlaying){
+                $scope.playSound("4", forcePlay);
+            }
+            document.body.style.cursor = "default";
+        }else if($scope.distance<340){
+            if($scope.soundPlaying){
+                $scope.playSound("3", forcePlay);
+            }
+            document.body.style.cursor = "default";
+        }else{
+            if($scope.soundPlaying){
+                $scope.playSound("2", forcePlay);
+            }
+            document.body.style.cursor = "default";
+        }
+    };
+
+
+    
+    $scope.stopBackroundMusic = function(){
+         $scope.personalAudioStream.stop();   
+    };
+    
+    $scope.playSound = function (variable, forcePlay) {
+        if(forcePlay || $scope.canPlay || variable > 11) {
+            $scope.canPlay = false;
+            musicSrv.bpm("knödel");
+            $scope.cowAudio[variable].setVolume(100).play();
+        }
+    };
+
+
+    $scope.initAudio();
+    angular.element("#game").on("touchstart", $scope.onTouchmove);
+}]);
+
