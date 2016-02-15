@@ -57,6 +57,7 @@ body{
    top: 50%;
    left: 50%;
    transform: translate(-50%,-50%);
+   -webkit-transform: translate(-50%,-50%);
     max-width: 100%;
     height: auto;
 }
@@ -150,13 +151,9 @@ body{
    }
 }
 
+@media (min-width: 0) and (max-width: 800PX) {
 
-
-
-  @media (min-width: 0) and (max-width: 800PX) {
-    
-
-    body, html, .wrapper {
-      overflow-x: hidden;
-    }
-  }
+body, html, .wrapper {
+    overflow-x: hidden;
+}
+}
