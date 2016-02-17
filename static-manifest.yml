@@ -1,10 +1,10 @@
 ---
 applications:
-- name: cloudgame
+- name: cloudgame2
   buildpack: https://github.com/drnic/staticfile-buildpack.git
   memory: 64M
   instances: 1
-  host: cloudgame
+  host: cloudgame2
   domain: yaas.io
-  url: cloudgame.yaas.io
+  url: cloudgame2.yaas.io
   path: dist/

@@ -14,9 +14,9 @@ module.exports = function (grunt) {
         //--Set Parameters for Server Configuration----------------------------------------------------
         // Read npm argument and set the dynamic server environment or use default configuration.
         // Syntax example for npm 2.0 parameters: $ npm run-script singleProd -- --pid=xxx --cid=123
-        PROJECT_ID = grunt.option('pid') || 'cloudgame',
-        CLIENT_ID = grunt.option('cid') || 'GJS6GqMriAXE2xTZYmvmHYVElwE9WEl3',
-        REDIRECT_URI = 'https://cloudgame.us-east.internal.yaas.io/',
+        PROJECT_ID = grunt.option('pid') || '2',
+        CLIENT_ID = grunt.option('cid') || 'wQmq7aKCGv7xnebWeq41IpbLQabc2FsZ',
+        REDIRECT_URI = 'https://cloudgame2.yaas.io',
 
         PROJECT_ID_PATH = './public/js/app/shared/app-config.js',
         PROD_DOMAIN = 'api.yaas.io',
